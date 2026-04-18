@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Subgames/TransitGame.gd" id="1_script"]
+
+[sub_resource type="Curve2D" id="Curve_bus"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 200, 600, 0, 0, 0, 0, 960, 500, 0, 0, 0, 0, 1720, 600)
+}
+
+[sub_resource type="Curve2D" id="Curve_train"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 200, 300, 0, 0, 0, 0, 960, 200, 0, 0, 0, 0, 1720, 300)
+}
+
+[node name="TransitGame" type="Node2D"]
+script = ExtResource("1_script")
+subgame_id = &"transit"
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.85, 0.93, 1.0, 1)
+
+[node name="TrainPath" type="Path2D" parent="."]
+curve = SubResource("Curve_train")
+
+[node name="TrainFollow" type="PathFollow2D" parent="TrainPath" unique_name_in_owner=true]
+rotates = false
+
+[node name="TrainSprite" type="Sprite2D" parent="TrainPath/TrainFollow" unique_name_in_owner=true]
+modulate = Color(0.35, 0.45, 0.85, 1)
+
+[node name="Body" type="ColorRect" parent="TrainPath/TrainFollow/TrainSprite"]
+offset_left = -60.0
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+color = Color(0.35, 0.45, 0.85, 1)
+
+[node name="BusPath" type="Path2D" parent="."]
+curve = SubResource("Curve_bus")
+
+[node name="BusFollow" type="PathFollow2D" parent="BusPath" unique_name_in_owner=true]
+rotates = false
+
+[node name="BusSprite" type="Sprite2D" parent="BusPath/BusFollow" unique_name_in_owner=true]
+modulate = Color(0.95, 0.72, 0.25, 1)
+
+[node name="Body" type="ColorRect" parent="BusPath/BusFollow/BusSprite"]
+offset_left = -60.0
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+color = Color(0.95, 0.72, 0.25, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DestinationLabel" type="Label" parent="UI" unique_name_in_owner=true]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1880.0
+offset_bottom = 140.0
+text = "Get to Dino-Museum!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 72
+
+[node name="Buttons" type="HBoxContainer" parent="UI"]
+offset_left = 560.0
+offset_top = 820.0
+offset_right = 1360.0
+offset_bottom = 980.0
+theme_override_constants/separation = 80
+
+[node name="BusButton" type="Button" parent="UI/Buttons" unique_name_in_owner=true]
+custom_minimum_size = Vector2(360, 160)
+text = "Bus — 0 min"
+theme_override_font_sizes/font_size = 48
+
+[node name="TrainButton" type="Button" parent="UI/Buttons" unique_name_in_owner=true]
+custom_minimum_size = Vector2(360, 160)
+text = "Train — 0 min"
+theme_override_font_sizes/font_size = 48
