@@ -52,7 +52,8 @@ func _on_item_clicked(event: InputEvent, slot: Control) -> void:
 func _handle_selection(slot: Control) -> void:
 	var price := price_a if slot == item_a else price_b
 	if price <= player_money:
-		report_success()
+		if report_success():
+			return
 		_new_round()
 	else:
 		report_failure()

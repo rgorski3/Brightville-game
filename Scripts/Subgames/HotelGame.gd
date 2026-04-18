@@ -43,10 +43,10 @@ func _build_inventory() -> void:
 
 func _new_request() -> void:
 	_delivered.clear()
-	var items: Array = LOCATION_INVENTORY[location].duplicate()
+	var items: Array = LOCATION_INVENTORY.get(location, LOCATION_INVENTORY[&"main_street"]).duplicate()
 	items.shuffle()
 	_current_request = []
-	for i in range(3):
+	for i in range(min(3, items.size())):
 		_current_request.append(items[i])
 	guest_label.text = "Guest: \"Hi! Could you bring me...\""
 	_refresh_request_label()
@@ -68,7 +68,8 @@ func _on_item_pressed(item_id: StringName) -> void:
 		_delivered.append(item_id)
 		_refresh_request_label()
 		if _delivered.size() == _current_request.size():
-			report_success()
+			if report_success():
+				return
 			_new_request()
 	else:
 		report_failure()

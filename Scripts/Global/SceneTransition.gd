@@ -17,11 +17,16 @@ func _ready() -> void:
 	add_child(_rect)
 
 func change_scene(path: String) -> void:
+	_rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	await _fade_to(1.0)
 	var err := get_tree().change_scene_to_file(path)
 	if err != OK:
 		push_error("Scene change failed: %s (err=%d)" % [path, err])
+		await _fade_to(0.0)
+		_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		return
 	await _fade_to(0.0)
+	_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _fade_to(target_alpha: float) -> void:
 	var tween := create_tween()

@@ -18,8 +18,10 @@ func _ready() -> void:
 	round_succeeded.connect(_on_round_succeeded)
 	round_failed.connect(_on_round_failed)
 
-func report_success() -> void:
+## Returns true if this success completed the subgame (badge awarded).
+func report_success() -> bool:
 	round_succeeded.emit()
+	return _rounds_won >= rounds_to_badge
 
 func report_failure() -> void:
 	round_failed.emit()

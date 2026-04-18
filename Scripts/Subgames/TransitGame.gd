@@ -50,7 +50,8 @@ func _on_route_selected(route: String) -> void:
 	await _animate_vehicle(follow)
 
 	if correct:
-		report_success()
+		if report_success():
+			return
 	else:
 		report_failure()
 	_new_round()
