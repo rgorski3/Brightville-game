@@ -49,7 +49,7 @@ func _new_round() -> void:
 	price_a_label.text = "$%d" % price_a
 	price_b_label.text = "$%d" % price_b
 
-func _get_slot_drag_data(slot: ColorRect, _at_position: Vector2) -> Variant:
+func _get_slot_drag_data(_at_position: Vector2, slot: ColorRect) -> Variant:
 	if not _round_active:
 		return null
 	var preview := ColorRect.new()
