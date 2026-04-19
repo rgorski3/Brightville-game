@@ -1,18 +1,18 @@
 extends BaseGame
 ## Subgame 1: The Brightville Express.
-## Compare bus_time vs. train_time, player picks the faster route,
-## then a Sprite2D travels along the chosen Path2D (spec Prompt 3).
+## Compare bus_time vs train_time; player picks the faster route.
+## The chosen vehicle tweens across the screen as visual feedback.
 
 const DESTINATIONS := ["Dino-Museum", "Cloud Marble Park", "Sparkle Pier"]
 const VEHICLE_TRAVEL_SECONDS := 1.8
+const VEHICLE_START_X := 60.0
+const VEHICLE_END_X := 1820.0
 
 @onready var destination_label: Label = $UI/DestinationLabel
 @onready var bus_button: Button = $UI/Buttons/BusButton
 @onready var train_button: Button = $UI/Buttons/TrainButton
-@onready var bus_path: PathFollow2D = $BusPath/BusFollow
-@onready var train_path: PathFollow2D = $TrainPath/TrainFollow
-@onready var bus_sprite: Sprite2D = $BusPath/BusFollow/BusSprite
-@onready var train_sprite: Sprite2D = $TrainPath/TrainFollow/TrainSprite
+@onready var bus_vehicle: ColorRect = $BusVehicle
+@onready var train_vehicle: ColorRect = $TrainVehicle
 
 var bus_time: int = 0
 var train_time: int = 0
@@ -26,8 +26,8 @@ func _ready() -> void:
 	_new_round()
 
 func _new_round() -> void:
-	bus_path.progress_ratio = 0.0
-	train_path.progress_ratio = 0.0
+	bus_vehicle.position.x = VEHICLE_START_X
+	train_vehicle.position.x = VEHICLE_START_X
 	bus_time = randi_range(5, 20)
 	train_time = randi_range(5, 20)
 	while train_time == bus_time:
@@ -45,9 +45,9 @@ func _on_route_selected(route: String) -> void:
 
 	var selected_time := bus_time if route == "bus" else train_time
 	var correct := selected_time == min(bus_time, train_time)
-	var follow := bus_path if route == "bus" else train_path
+	var vehicle := bus_vehicle if route == "bus" else train_vehicle
 
-	await _animate_vehicle(follow)
+	await _animate_vehicle(vehicle)
 
 	if correct:
 		if report_success():
@@ -56,7 +56,7 @@ func _on_route_selected(route: String) -> void:
 		report_failure()
 	_new_round()
 
-func _animate_vehicle(follow: PathFollow2D) -> void:
+func _animate_vehicle(vehicle: ColorRect) -> void:
 	var tween := create_tween()
-	tween.tween_property(follow, "progress_ratio", 1.0, VEHICLE_TRAVEL_SECONDS)
+	tween.tween_property(vehicle, "position:x", VEHICLE_END_X, VEHICLE_TRAVEL_SECONDS)
 	await tween.finished
