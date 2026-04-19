@@ -1,0 +1,37 @@
+; Engine configuration file for Brightville Helpers.
+; Manually maintained; Godot 4.x rewrites this file on first open.
+
+config_version=5
+
+[application]
+
+config/name="Brightville Helpers"
+config/description="A 2D children's learning game set in the town of Brightville. Three subgames (Transit, Shopping, Hotel) teach route planning, budgeting, and matching."
+run/main_scene="res://Scenes/MainMenu.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://Scripts/Global/GameState.gd"
+SceneTransition="*res://Scripts/Global/SceneTransition.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[input]
+
+touch_click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"collision_mask":1,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)]
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.96, 0.93, 0.85, 1)
