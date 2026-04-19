@@ -6,13 +6,13 @@ extends BaseGame
 const DESTINATIONS := ["Dino-Museum", "Cloud Marble Park", "Sparkle Pier"]
 const VEHICLE_TRAVEL_SECONDS := 1.8
 
-@onready var destination_label: Label = %DestinationLabel
-@onready var bus_button: Button = %BusButton
-@onready var train_button: Button = %TrainButton
-@onready var bus_path: PathFollow2D = %BusFollow
-@onready var train_path: PathFollow2D = %TrainFollow
-@onready var bus_sprite: Sprite2D = %BusSprite
-@onready var train_sprite: Sprite2D = %TrainSprite
+@onready var destination_label: Label = $UI/DestinationLabel
+@onready var bus_button: Button = $UI/Buttons/BusButton
+@onready var train_button: Button = $UI/Buttons/TrainButton
+@onready var bus_path: PathFollow2D = $BusPath/BusFollow
+@onready var train_path: PathFollow2D = $TrainPath/TrainFollow
+@onready var bus_sprite: Sprite2D = $BusPath/BusFollow/BusSprite
+@onready var train_sprite: Sprite2D = $TrainPath/TrainFollow/TrainSprite
 
 var bus_time: int = 0
 var train_time: int = 0

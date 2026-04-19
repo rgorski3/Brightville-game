@@ -8,9 +8,9 @@ const ROUTES := {
 	&"hotel":    "res://Scenes/Subgame_Hotel.tscn",
 }
 
-@onready var transit_button: Button = %TransitButton
-@onready var shopping_button: Button = %ShoppingButton
-@onready var hotel_button: Button = %HotelButton
+@onready var transit_button: Button = $UI/Buttons/TransitButton
+@onready var shopping_button: Button = $UI/Buttons/ShoppingButton
+@onready var hotel_button: Button = $UI/Buttons/HotelButton
 
 func _ready() -> void:
 	transit_button.pressed.connect(_go.bind(&"transit"))
@@ -24,9 +24,9 @@ func _refresh_labels() -> void:
 	shopping_button.text = _label("Brightville Bazaar", &"shopping")
 	hotel_button.text = _label("Grand Brightville Hotel", &"hotel")
 
-func _label(name: String, id: StringName) -> String:
+func _label(title: String, id: StringName) -> String:
 	var star := " ★" if GameState.has_badge(id) else ""
-	return "%s%s" % [name, star]
+	return "%s%s" % [title, star]
 
 func _go(subgame_id: StringName) -> void:
 	SceneTransition.change_scene(ROUTES[subgame_id])
