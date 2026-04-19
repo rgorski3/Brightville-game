@@ -6,12 +6,12 @@ extends BaseGame
 const MIN_WALLET := 5
 const MAX_WALLET := 20
 
-@onready var wallet_label: Label = %WalletLabel
-@onready var item_a: ColorRect = %ItemA
-@onready var item_b: ColorRect = %ItemB
-@onready var bag: ColorRect = %ShoppingBag
-@onready var price_a_label: Label = %ItemA/PriceLabel
-@onready var price_b_label: Label = %ItemB/PriceLabel
+@onready var wallet_label: Label = $UI/WalletLabel
+@onready var item_a: ColorRect = $UI/Shelf/ItemA
+@onready var item_b: ColorRect = $UI/Shelf/ItemB
+@onready var bag: ColorRect = $UI/ShoppingBag
+@onready var price_a_label: Label = $UI/Shelf/ItemA/PriceLabel
+@onready var price_b_label: Label = $UI/Shelf/ItemB/PriceLabel
 
 var player_money: int = 0
 var price_a: int = 0

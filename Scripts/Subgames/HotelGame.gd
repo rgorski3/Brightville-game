@@ -12,9 +12,9 @@ const LOCATION_INVENTORY := {
 
 @export var location: StringName = &"main_street"
 
-@onready var guest_label: Label = %GuestLabel
-@onready var request_label: Label = %RequestLabel
-@onready var inventory_grid: GridContainer = %InventoryGrid
+@onready var guest_label: Label = $UI/GuestLabel
+@onready var request_label: Label = $UI/RequestLabel
+@onready var inventory_grid: GridContainer = $UI/InventoryGrid
 
 var _current_request: Array[StringName] = []
 var _delivered: Array[StringName] = []
